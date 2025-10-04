@@ -1,0 +1,89 @@
+=pod
+
+=head1 NAME
+
+Class::Enumeration - Abstract superclass of enum subclasses
+
+=head1 SYNOPSIS
+
+  use strict;
+  use warnings;
+
+  package Turnstile;
+
+  use parent 'Class::Enumeration';
+
+  # declaration of enum objects
+  our @Values = do {
+    my $ordinal = 0;
+    map { __PACKAGE__->new( $_, $ordinal++ ) } qw( Unlocked Locked )
+  };
+
+  1
+
+=head1 DESCRIPTION
+
+Each enum subclass has an object method C<name()>, that returns the
+name of the enum object, exactly as declared.
+
+Each enum subclass has an object method C<ordinal()>, that returns
+the ordinal of the enum object (its position in its declaration,
+where the initial object is assigned an ordinal of zero).
+
+Each enum subclass has a class method C<names()>, that returns a list
+of names of the enum objects in the order they are declared.
+
+Each enum subclass has a class method C<values()>, that returns a list
+of the enum objects in the order they are declared.
+
+Each enum subclass has a class method C<value_of( $name )>, that returns
+the enum object with the specified name.
+
+Each enum subclass inherits stringification C<'""'> from its
+C<Class::Enumeration> superclass. By default the string representation of an
+enum object is its C<name()>. If you want to override this behaviour,
+you have to provide a C<as_string()> implementation in your enum subclass.
+
+The superclass C<Class::Enumeration> overloads the operators C<'=='>, and
+C<'!='> too. Magic auto-generation of overload implementations for other
+operators is turned off. An enum subclass can add its own overload
+implementations.
+
+=head1 SEE ALSO
+
+=over 2
+
+=item *
+
+L<Class::Enum>
+
+=item *
+
+L<Data::Enum>
+
+=item *
+
+L<Class::Type::Enum>
+
+=item *
+
+L<Object::Enum>
+
+=item *
+
+L<Package::Stash>
+
+=back
+
+=head1 AUTHOR
+
+Sven Willenbuecher <sven.willenbuecher@gmx.de>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2025 by Sven Willenbuecher.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut

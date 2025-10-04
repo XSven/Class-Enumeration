@@ -1,0 +1,45 @@
+## no critic (ProhibitMagicNumbers)
+
+use strict;
+use warnings;
+
+use Test::Lib;
+use Test::More import => [ qw( BAIL_OUT cmp_ok is_deeply isa_ok like note plan subtest use_ok ) ], tests => 3;
+use Test::Fatal qw( exception );
+
+my $class;
+
+BEGIN {
+  $class = 'Turnstile';
+  use_ok( $class, qw( :all ) ) or BAIL_OUT "Cannot load class '$class'!";
+}
+
+subtest 'Class method invocations' => sub {
+  plan tests => 10;
+
+  for my $enum ( $class->values ) {
+    note my $name = $enum->name;
+    cmp_ok "$enum", 'eq', $name, 'Check default stringification';
+    isa_ok $enum, $class;
+    isa_ok $enum, 'Class::Enumeration';
+    cmp_ok $enum, '==', $class->value_of( $enum->name ), 'Get enum object reference by name'
+  }
+
+  is_deeply [ $class->names ], [ qw( Unlocked Locked ) ], 'Get names of enum objects';
+
+  like exception {
+    $class->value_of( 'Initial' )
+  }, qr/\ANo enum object defined for name '.*', stopped/, 'Provoke value_of() exception'
+};
+
+subtest 'Access enum fields' => sub {
+  plan tests => 4;
+
+  my $enum = $class->value_of( 'Unlocked' );
+  cmp_ok $enum->name,    'eq', 'Unlocked', 'Get name';
+  cmp_ok $enum->ordinal, '==', 0,          'Get ordinal';
+
+  $enum = $class->value_of( 'Locked' );
+  cmp_ok $enum->name,    'eq', 'Locked', 'Get name';
+  cmp_ok $enum->ordinal, '==', 1,        'Get ordinal'
+}
