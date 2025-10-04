@@ -23,11 +23,11 @@ Class::Enumeration - Abstract superclass of enum subclasses
 
 =head1 DESCRIPTION
 
-Each enum subclass has an object method C<name()>, that returns the
-name of the enum object, exactly as declared.
+Each enum subclass has a getter method (an object method) C<name()>, that
+returns the name of the enum object, exactly as declared.
 
-Each enum subclass has an object method C<ordinal()>, that returns
-the ordinal of the enum object (its position in its declaration,
+Each enum subclass has a getter method (an object method) C<ordinal()>, that
+returns the ordinal of the enum object (its position in its declaration,
 where the initial object is assigned an ordinal of zero).
 
 Each enum subclass has a class method C<names()>, that returns a list
@@ -36,8 +36,8 @@ of names of the enum objects in the order they are declared.
 Each enum subclass has a class method C<values()>, that returns a list
 of the enum objects in the order they are declared.
 
-Each enum subclass has a class method C<value_of( $name )>, that returns
-the enum object with the specified name.
+Each enum subclass has a factory method (a class method) C<value_of( $name)>,
+that returns the enum object with the specified name.
 
 Each enum subclass inherits stringification C<'""'> from its
 C<Class::Enumeration> superclass. By default the string representation of an
