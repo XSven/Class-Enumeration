@@ -59,19 +59,15 @@ L<Class::Enum>
 
 =item *
 
-L<Data::Enum>
-
-=item *
-
 L<Class::Type::Enum>
 
 =item *
 
-L<Object::Enum>
+L<Data::Enum>
 
 =item *
 
-L<Package::Stash>
+L<Object::Enum>
 
 =back
 
