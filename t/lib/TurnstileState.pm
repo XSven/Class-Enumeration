@@ -1,13 +1,13 @@
 use strict;
 use warnings;
 
-package Turnstile;
+package TurnstileState;
 
 use parent 'Class::Enumeration';
 
 our @Values = do { ## no critic ( ProhibitPackageVars )
   my $ordinal = 0;
-  map { __PACKAGE__->new( $_, $ordinal++ ) } qw( Unlocked Locked )
+  map { __PACKAGE__->new( $_, $ordinal++ ) } qw( Locked Unlocked )
 };
 
 1

@@ -9,14 +9,14 @@ Class::Enumeration - Abstract superclass of enum subclasses
   use strict;
   use warnings;
 
-  package Turnstile;
+  package TurnstileState;
 
   use parent 'Class::Enumeration';
 
   # declaration of enum objects
   our @Values = do {
     my $ordinal = 0;
-    map { __PACKAGE__->new( $_, $ordinal++ ) } qw( Unlocked Locked )
+    map { __PACKAGE__->new( $_, $ordinal++ ) } qw( Locked Unlocked )
   };
 
   1

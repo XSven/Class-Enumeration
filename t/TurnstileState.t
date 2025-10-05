@@ -10,7 +10,7 @@ use Test::Fatal qw( exception );
 my $class;
 
 BEGIN {
-  $class = 'Turnstile';
+  $class = 'TurnstileState';
   use_ok( $class, qw( :all ) ) or BAIL_OUT "Cannot load class '$class'!";
 }
 
@@ -25,7 +25,7 @@ subtest 'Class method invocations' => sub {
     cmp_ok $enum, '==', $class->value_of( $enum->name ), 'Get enum object reference by name'
   }
 
-  is_deeply [ $class->names ], [ qw( Unlocked Locked ) ], 'Get names of enum objects';
+  is_deeply [ $class->names ], [ qw( Locked Unlocked ) ], 'Get names of enum objects';
 
   like exception {
     $class->value_of( 'Initial' )
@@ -35,11 +35,11 @@ subtest 'Class method invocations' => sub {
 subtest 'Access enum fields' => sub {
   plan tests => 4;
 
-  my $enum = $class->value_of( 'Unlocked' );
-  cmp_ok $enum->name,    'eq', 'Unlocked', 'Get name';
-  cmp_ok $enum->ordinal, '==', 0,          'Get ordinal';
-
-  $enum = $class->value_of( 'Locked' );
+  my $enum = $class->value_of( 'Locked' );
   cmp_ok $enum->name,    'eq', 'Locked', 'Get name';
-  cmp_ok $enum->ordinal, '==', 1,        'Get ordinal'
+  cmp_ok $enum->ordinal, '==', 0,        'Get ordinal';
+
+  $enum = $class->value_of( 'Unlocked' );
+  cmp_ok $enum->name,    'eq', 'Unlocked', 'Get name';
+  cmp_ok $enum->ordinal, '==', 1,          'Get ordinal'
 }
