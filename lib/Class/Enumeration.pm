@@ -20,17 +20,17 @@ use Scalar::Util ();
 # $class == enum class
 
 sub new {
-  my ( $class, $name, $ordinal, $attributes ) = @_;
+  my ( $class, $ordinal, $name, $attributes ) = @_;
 
   $attributes = {} unless defined $attributes;
   Carp::croak "The provided enum object optional attributes data structure isn't a HASH reference, stopped"
     unless ref $attributes eq 'HASH';
   for ( keys %$attributes ) {
     Carp::croak "Overriding the implicit '$_' enum object attribute is forbidden, stopped"
-      if $_ eq 'name' or $_ eq 'ordinal';
+      if $_ eq 'ordinal' or $_ eq 'name';
   }
 
-  bless { name => $name, ordinal => $ordinal, %$attributes }, $class
+  bless { ordinal => $ordinal, name => $name, %$attributes }, $class
 }
 
 sub name {
