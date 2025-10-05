@@ -4,8 +4,8 @@ use strict;
 use warnings;
 
 use Test::Lib;
-use Test::More import => [ qw( BAIL_OUT cmp_ok is_deeply isa_ok like note plan subtest use_ok ) ], tests => 3;
-use Test::Fatal qw( exception );
+use Test::More import => [ qw( BAIL_OUT cmp_ok is_deeply isa_ok note plan subtest use_ok ) ], tests => 3;
+use Test::Fatal qw( dies_ok );
 
 my $class;
 
@@ -27,9 +27,7 @@ subtest 'Class method invocations' => sub {
 
   is_deeply [ $class->names ], [ qw( Locked Unlocked ) ], 'Get names of enum objects';
 
-  like exception {
-    $class->value_of( 'Initial' )
-  }, qr/\ANo enum object defined for name '.*', stopped/, 'Provoke value_of() exception'
+  dies_ok { $class->value_of( 'Initial' ) } 'No such enum object for the given name'
 };
 
 subtest 'Access enum fields' => sub {
