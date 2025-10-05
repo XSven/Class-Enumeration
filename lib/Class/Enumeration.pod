@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Class::Enumeration - Abstract superclass of enum subclasses
+Class::Enumeration - Abstract parent class of enum classes
 
 =head1 SYNOPSIS
 
@@ -23,30 +23,33 @@ Class::Enumeration - Abstract superclass of enum subclasses
 
 =head1 DESCRIPTION
 
-Each enum subclass has a getter method (an object method) C<name()>, that
-returns the name of the enum object, exactly as declared.
+An enum class is a fixed list of enum objects. Each enum object is immutable
+and has a C<name> and an C<ordinal> attribute.
 
-Each enum subclass has a getter method (an object method) C<ordinal()>, that
-returns the ordinal of the enum object (its position in its declaration,
+Each enum class has a getter method (an object method) C<name()>, that
+returns the C<name> of the enum object, exactly as declared.
+
+Each enum class has a getter method (an object method) C<ordinal()>, that
+returns the C<ordinal> of the enum object (its position in its declaration,
 where the initial object is assigned an ordinal of zero).
 
-Each enum subclass has a class method C<names()>, that returns a list
-of names of the enum objects in the order they are declared.
-
-Each enum subclass has a class method C<values()>, that returns a list
+Each enum class has a class method C<names()>, that returns a list of names
 of the enum objects in the order they are declared.
 
-Each enum subclass has a factory method (a class method) C<value_of( $name)>,
+Each enum class has a class method C<values()>, that returns the fixed list
+of the enum objects in the order they are declared.
+
+Each enum class has a factory method (a class method) C<value_of( $name )>,
 that returns the enum object with the specified name.
 
-Each enum subclass inherits stringification C<'""'> from its
-C<Class::Enumeration> superclass. By default the string representation of an
-enum object is its C<name()>. If you want to override this behaviour,
-you have to provide a C<as_string()> implementation in your enum subclass.
+Each enum class inherits stringification C<'""'> from its C<Class::Enumeration>
+parent class. By default the string representation of an enum object is its
+C<name()>. If you want to override this behaviour, you have to provide an
+C<as_string()> implementation in your enum class.
 
-The superclass C<Class::Enumeration> overloads the operators C<'=='>, and
-C<'!='> too. Magic auto-generation of overload implementations for other
-operators is turned off. An enum subclass can add its own overload
+The parent class C<Class::Enumeration> overloads the operators C<'=='>,
+and C<'!='> too. Magic auto-generation of overload implementations for
+other operators is turned off. An enum class can add its own overload
 implementations.
 
 =head1 SEE ALSO

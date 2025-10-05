@@ -1,6 +1,6 @@
 NAME
 
-Class::Enumeration - Abstract superclass of enum subclasses
+Class::Enumeration - Abstract parent class of enum classes
 
 INSTALLATION
 
