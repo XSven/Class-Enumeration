@@ -31,7 +31,7 @@ subtest 'Class method invocations' => sub {
 };
 
 subtest 'Access enum attributes' => sub {
-  plan tests => 6;
+  plan tests => 9;
 
   my $enum = $class->value_of( 'BIG' );
   cmp_ok $enum->name,    'eq', 'BIG', 'Get name';
@@ -41,5 +41,10 @@ subtest 'Access enum attributes' => sub {
   $enum = $class->value_of( 'HUGE' );
   cmp_ok $enum->name,    'eq', 'HUGE', 'Get name';
   cmp_ok $enum->ordinal, '==', 1,      'Get ordinal';
-  cmp_ok $enum->ounces,  '==', 10,     'Get ounces'
+  cmp_ok $enum->ounces,  '==', 10,     'Get ounces';
+
+  $enum = $class->value_of( 'OVERWHELMING' );
+  cmp_ok $enum->name,    'eq', 'OVERWHELMING', 'Get name';
+  cmp_ok $enum->ordinal, '==', 2,              'Get ordinal';
+  cmp_ok $enum->ounces,  '==', 16,             'Get ounces'
 }
