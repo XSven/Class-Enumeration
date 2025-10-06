@@ -3,6 +3,7 @@ use warnings;
 
 package CoffeeSize;
 
+# On purpose do not use Class::Enumeration::Builder
 use parent 'Class::Enumeration';
 
 # https://metacpan.org/pod/Class::Enum#Advanced-usage
