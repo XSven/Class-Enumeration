@@ -14,10 +14,10 @@ BEGIN {
 
 public_ok $class, qw( new name ordinal value_of values names as_string );
 
-dies_ok { $class->new( 0, 'Locked', [] ) } 'Wrong optional attributes data structure';
+dies_ok { $class->new( 0, 'Locked', [] ) } 'Wrong custom attributes data structure';
 
 for ( qw( name ordinal ) ) {
   dies_ok { $class->new( 0, Locked => { $_ => undef } ) } "Overriding $_ attribute is forbidden"
 }
 
-lives_ok { $class->new( 0, BIG => { ounces => 8 } ) } 'Provide valid optional attributes data structure'
+lives_ok { $class->new( 0, BIG => { ounces => 8 } ) } 'Provide valid custom attributes data structure'

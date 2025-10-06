@@ -12,6 +12,8 @@ t/api.t
 t/CoffeeSize.t
 t/lib/CoffeeSize.pm
 t/lib/ToastStatus.pm
+t/lib/TrafficSignal.pm
 t/lib/TurnstileState.pm
 t/ToastStatus.t
+t/TrafficSignal.t
 t/TurnstileState.t
