@@ -18,7 +18,7 @@ sub import {
 
   unless ( $norequire ) {
     for ( my @filename = @_ ) {
-      local @_;
+      local @_; ## no critic ( RequireInitializationForLocalVars )
       s{::|'}{/}g;
       $_ .= '.pm';
       require
@@ -26,7 +26,7 @@ sub import {
   }
 
   {
-    no strict 'refs';
+    no strict 'refs'; ## no critic ( ProhibitNoStrict )
     push @{ $inheritor . '::ISA' }, @_
   }
 }
