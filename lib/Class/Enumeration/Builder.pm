@@ -3,7 +3,7 @@ use warnings;
 
 package Class::Enumeration::Builder;
 
-use parent ();
+use Class::Enumeration;
 
 sub import {
   shift;
@@ -11,7 +11,10 @@ sub import {
   # $class == enum class
   my $class = caller;
 
-  parent->import( -inheritor => $class, 'Class::Enumeration' );
+  {
+    no strict 'refs'; ## no critic ( ProhibitNoStrict )
+    push @{ "$class\::ISA" }, 'Class::Enumeration'
+  }
 
   my @values;
   my $ordinal = 0;

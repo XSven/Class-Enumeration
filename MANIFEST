@@ -3,7 +3,6 @@ cpanfile
 lib/Class/Enumeration.pm
 lib/Class/Enumeration.pod
 lib/Class/Enumeration/Builder.pm
-lib/parent.pm
 LICENSE
 Makefile.PL
 MANIFEST			This list of files
