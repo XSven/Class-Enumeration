@@ -31,7 +31,8 @@ sub import {
 
   {
     no strict 'refs'; ## no critic ( ProhibitNoStrict )
-    *{ "$class\::Values" } = \@values;
+    no warnings 'once';
+    @{ "$class\::Values" } = @values
   }
 }
 
