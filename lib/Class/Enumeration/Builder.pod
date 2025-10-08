@@ -20,12 +20,6 @@ Class::Enumeration::Builder - Builder module for enum classes
     RED    => { action => 'stop' }
   );
 
-  sub action {
-    my ( $self ) = @_;
-
-    $self->{ action }
-  }
-
   sub as_string {
     my ( $self ) = @_;
 

@@ -11,6 +11,7 @@ use subs '_compare_attributes';
 
 use Carp               qw( croak );
 use Class::Enumeration ();
+use Sub::Util          qw( set_subname );
 
 sub import {
   shift;
@@ -30,19 +31,26 @@ sub import {
   # Check if custom attributes were provided
   if ( ref $_[ 1 ] eq 'HASH' ) {
     my ( $reference_name, $reference_attributes ) = @_[ 0 .. 1 ];
-    # TODO: getters for custom attributes have to be setup in enum class
+    # Build getters for custom attributes
+    for my $getter ( keys %$reference_attributes ) {
+      no strict 'refs'; ## no critic ( ProhibitNoStrict )
+      *{ "$class\::$getter" } = set_subname "$class\::$getter" => sub { my ( $self ) = @_; $self->{ $getter } }
+    }
+    # Build list (@values) of enum object
     while ( my ( $name, $attributes ) = splice @_, 0, 2 ) {
       croak "'$reference_name' enum and '$name' enum have different custom attributes, stopped"
         unless _compare_attributes $reference_attributes, $attributes;
       push @values, $class->new( $ordinal++, $name, $attributes )
     }
   } else {
+    # Build list (@values) of enum object
     @values = map { $class->new( $ordinal++, $_ ) } @_
   }
 
   {
     no strict 'refs'; ## no critic ( ProhibitNoStrict )
     no warnings 'once';
+    # Inject list of enum objects
     @{ "$class\::Values" } = @values
   }
 }

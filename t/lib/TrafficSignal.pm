@@ -11,12 +11,6 @@ use Class::Enumeration::Builder (
   RED    => { action => 'stop' }
 );
 
-sub action {
-  my ( $self ) = @_;
-
-  $self->{ action }
-}
-
 sub as_string {
   my ( $self ) = @_;
 
