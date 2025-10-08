@@ -11,9 +11,10 @@ Class::Enumeration::Builder - Builder module for enum classes
 
   package TrafficSignal;
 
-  # Pre-declare the as_string() method
+  # Pre-declare the as_string() method to prepare overriding stringification
   use subs 'as_string';
 
+  # 'action' is a custom attribute
   use Class::Enumeration::Builder (
     GREEN  => { action => 'go' },
     ORANGE => { action => 'slow down' },
@@ -31,7 +32,9 @@ Class::Enumeration::Builder - Builder module for enum classes
 =head1 DESCRIPTION
 
 Loading C<Class::Enumration::Builder> starts the build process. It makes
-each enum class inherit from the abstract parent class L<Class::Enumeration>.
+an enum class inherit from the abstract parent class L<Class::Enumeration>.
+It creates getters for the custom attributes. It finally prepares the list of
+enum objects.
 
 If you want to override the default stringification you have to pre-declare
 the C<as_string()> before loading the builder.
