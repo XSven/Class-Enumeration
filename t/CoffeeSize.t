@@ -17,12 +17,12 @@ BEGIN {
 subtest 'Class method invocations' => sub {
   plan tests => 14;
 
-  for my $enum ( $class->values ) {
-    note my $name = $enum->name;
-    cmp_ok "$enum", 'eq', $name, 'Check default stringification';
-    isa_ok $enum, $class;
-    isa_ok $enum, 'Class::Enumeration';
-    cmp_ok $enum, '==', $class->value_of( $enum->name ), 'Get enum object reference by name'
+  for my $self ( $class->values ) {
+    note my $name = $self->name;
+    cmp_ok "$self", 'eq', $name, 'Check default stringification';
+    isa_ok $self, $class;
+    isa_ok $self, 'Class::Enumeration';
+    cmp_ok $self, '==', $class->value_of( $self->name ), 'Get enum object reference by name'
   }
 
   is_deeply [ $class->names ], [ qw( BIG HUGE OVERWHELMING ) ], 'Get names of enum objects';
@@ -33,18 +33,18 @@ subtest 'Class method invocations' => sub {
 subtest 'Access enum attributes' => sub {
   plan tests => 9;
 
-  my $enum = $class->value_of( 'BIG' );
-  cmp_ok $enum->name,    'eq', 'BIG', 'Get name';
-  cmp_ok $enum->ordinal, '==', 0,     'Get ordinal';
-  cmp_ok $enum->ounces,  '==', 8,     'Get ounces';
+  my $self = $class->value_of( 'BIG' );
+  cmp_ok $self->name,    'eq', 'BIG', 'Get name';
+  cmp_ok $self->ordinal, '==', 0,     'Get ordinal';
+  cmp_ok $self->ounces,  '==', 8,     'Get ounces';
 
-  $enum = $class->value_of( 'HUGE' );
-  cmp_ok $enum->name,    'eq', 'HUGE', 'Get name';
-  cmp_ok $enum->ordinal, '==', 1,      'Get ordinal';
-  cmp_ok $enum->ounces,  '==', 10,     'Get ounces';
+  $self = $class->value_of( 'HUGE' );
+  cmp_ok $self->name,    'eq', 'HUGE', 'Get name';
+  cmp_ok $self->ordinal, '==', 1,      'Get ordinal';
+  cmp_ok $self->ounces,  '==', 10,     'Get ounces';
 
-  $enum = $class->value_of( 'OVERWHELMING' );
-  cmp_ok $enum->name,    'eq', 'OVERWHELMING', 'Get name';
-  cmp_ok $enum->ordinal, '==', 2,              'Get ordinal';
-  cmp_ok $enum->ounces,  '==', 16,             'Get ounces'
+  $self = $class->value_of( 'OVERWHELMING' );
+  cmp_ok $self->name,    'eq', 'OVERWHELMING', 'Get name';
+  cmp_ok $self->ordinal, '==', 2,              'Get ordinal';
+  cmp_ok $self->ounces,  '==', 16,             'Get ounces'
 }

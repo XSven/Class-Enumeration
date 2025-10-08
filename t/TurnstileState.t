@@ -17,12 +17,12 @@ BEGIN {
 subtest 'Class method invocations' => sub {
   plan tests => 10;
 
-  for my $enum ( $class->values ) {
-    note my $name = $enum->name;
-    cmp_ok "$enum", 'eq', $name, 'Check default stringification';
-    isa_ok $enum, $class;
-    isa_ok $enum, 'Class::Enumeration';
-    cmp_ok $enum, '==', $class->value_of( $enum->name ), 'Get enum object reference by name'
+  for my $self ( $class->values ) {
+    note my $name = $self->name;
+    cmp_ok "$self", 'eq', $name, 'Check default stringification';
+    isa_ok $self, $class;
+    isa_ok $self, 'Class::Enumeration';
+    cmp_ok $self, '==', $class->value_of( $self->name ), 'Get enum object reference by name'
   }
 
   is_deeply [ $class->names ], [ qw( Locked Unlocked ) ], 'Get names of enum objects';
@@ -33,11 +33,11 @@ subtest 'Class method invocations' => sub {
 subtest 'Access enum attributes' => sub {
   plan tests => 4;
 
-  my $enum = $class->value_of( 'Locked' );
-  cmp_ok $enum->name,    'eq', 'Locked', 'Get name';
-  cmp_ok $enum->ordinal, '==', 0,        'Get ordinal';
+  my $self = $class->value_of( 'Locked' );
+  cmp_ok $self->name,    'eq', 'Locked', 'Get name';
+  cmp_ok $self->ordinal, '==', 0,        'Get ordinal';
 
-  $enum = $class->value_of( 'Unlocked' );
-  cmp_ok $enum->name,    'eq', 'Unlocked', 'Get name';
-  cmp_ok $enum->ordinal, '==', 1,          'Get ordinal'
+  $self = $class->value_of( 'Unlocked' );
+  cmp_ok $self->name,    'eq', 'Unlocked', 'Get name';
+  cmp_ok $self->ordinal, '==', 1,          'Get ordinal'
 }

@@ -1,0 +1,56 @@
+=pod
+
+=head1 NAME
+
+Class::Enumeration::Builder - Builder module for enum classes
+
+=head1 SYNOPSIS
+
+  use strict;
+  use warnings;
+
+  package TrafficSignal;
+
+  # Pre-declare the as_string() method
+  use subs 'as_string';
+
+  use Class::Enumeration::Builder (
+    GREEN  => { action => 'go' },
+    ORANGE => { action => 'slow down' },
+    RED    => { action => 'stop' }
+  );
+
+  sub action {
+    my ( $self ) = @_;
+
+    $self->{ action }
+  }
+
+  sub as_string {
+    my ( $self ) = @_;
+
+    $self->action . ' if ' . $self->name
+  }
+
+  1
+
+=head1 DESCRIPTION
+
+Loading C<Class::Enumration::Builder> starts the build process. It makes
+each enum class inherit from the abstract parent class L<Class::Enumeration>.
+
+If you want to override the default stringification you have to pre-declare
+the C<as_string()> before loading the builder.
+
+=head1 AUTHOR
+
+Sven Willenbuecher <sven.willenbuecher@gmx.de>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2025 by Sven Willenbuecher.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut

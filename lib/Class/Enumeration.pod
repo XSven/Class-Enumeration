@@ -13,7 +13,7 @@ Class::Enumeration - Abstract parent class of enum classes
 
   use parent 'Class::Enumeration';
 
-  # declaration of enum objects
+  # Declaration of enum objects
   our @Values = do {
     my $ordinal = 0;
     map { __PACKAGE__->new( $ordinal++, $_ ) } qw( Locked Unlocked )
