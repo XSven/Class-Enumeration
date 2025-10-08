@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More import => [ qw( BAIL_OUT use_ok ) ], tests => 6;
+use Test::More import => [ qw( BAIL_OUT use_ok ) ], tests => 7;
 use Test::API import => [ qw( public_ok ) ];
 use Test::Fatal qw( dies_ok lives_ok );
 
@@ -13,6 +13,8 @@ BEGIN {
 }
 
 public_ok $class, qw( new name ordinal value_of values names as_string );
+
+dies_ok { $class->new( 0, '' ) } 'The name cannot be empty';
 
 dies_ok { $class->new( 0, 'Locked', [] ) } 'Wrong custom attributes data structure';
 
