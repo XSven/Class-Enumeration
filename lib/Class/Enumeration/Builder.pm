@@ -1,7 +1,11 @@
+# Prefer numeric version for backwards compatibility
+BEGIN { require 5.010_001 }; ## no critic ( RequireUseStrict, RequireUseWarnings )
 use strict;
 use warnings;
 
 package Class::Enumeration::Builder;
+
+$Class::Enumeration::Builder::VERSION = 'v1.0.0';
 
 use Class::Enumeration;
 
@@ -11,6 +15,7 @@ sub import {
   # $class == enum class
   my $class = caller;
 
+  # Now start building the enum class
   {
     no strict 'refs'; ## no critic ( ProhibitNoStrict )
     push @{ "$class\::ISA" }, 'Class::Enumeration'
