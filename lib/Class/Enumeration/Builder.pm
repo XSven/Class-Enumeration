@@ -7,7 +7,10 @@ package Class::Enumeration::Builder;
 
 $Class::Enumeration::Builder::VERSION = 'v1.0.0';
 
-use Class::Enumeration;
+use subs '_compare_attributes';
+
+use Carp               qw( croak );
+use Class::Enumeration ();
 
 sub import {
   shift;
@@ -26,8 +29,11 @@ sub import {
   # https://metacpan.org/pod/Class::Enum#Advanced-usage
   # Check if custom attributes were provided
   if ( ref $_[ 1 ] eq 'HASH' ) {
+    my ( $reference_name, $reference_attributes ) = @_[ 0 .. 1 ];
     # TODO: getters for custom attributes have to be setup in enum class
     while ( my ( $name, $attributes ) = splice @_, 0, 2 ) {
+      croak "'$reference_name' enum and '$name' enum have different custom attributes, stopped"
+        unless _compare_attributes $reference_attributes, $attributes;
       push @values, $class->new( $ordinal++, $name, $attributes )
     }
   } else {
@@ -39,6 +45,20 @@ sub import {
     no warnings 'once';
     @{ "$class\::Values" } = @values
   }
+}
+
+sub _compare_attributes ( $$ ) {
+  my ( $reference_attributes, $attributes ) = @_;
+
+  # Compare 2 sets of names
+  my @reference_attributes = sort keys %$reference_attributes;
+  my @attributes           = sort keys %$attributes;
+
+  return unless @reference_attributes == @attributes;
+  for ( my $i = 0 ; $i < @reference_attributes ; $i++ ) {
+    return if $reference_attributes[ $i ] ne $attributes[ $i ]
+  }
+  1
 }
 
 1

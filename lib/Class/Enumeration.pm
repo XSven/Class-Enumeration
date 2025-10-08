@@ -22,7 +22,7 @@ use Scalar::Util ();
 sub new {
   my ( $class, $ordinal, $name, $attributes ) = @_;
 
-  Carp::croak "The enum object name cannot be empty, stopped"
+  Carp::croak 'The enum object name cannot be empty, stopped'
     if $name eq '';
   $attributes = {} unless defined $attributes;
   Carp::croak "The provided enum object custom attributes data structure isn't a HASH reference, stopped"
