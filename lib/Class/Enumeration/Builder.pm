@@ -7,7 +7,7 @@ package Class::Enumeration::Builder;
 
 $Class::Enumeration::Builder::VERSION = 'v1.0.0';
 
-use subs '_compare_attributes';
+use subs '_is_equal';
 
 use Carp               qw( croak );
 use Class::Enumeration ();
@@ -31,16 +31,16 @@ sub import {
   # Check if custom attributes were provided
   if ( ref $_[ 1 ] eq 'HASH' ) {
     my ( $reference_name, $reference_attributes ) = @_[ 0 .. 1 ];
+    # Build list (@values) of enum object
+    while ( my ( $name, $attributes ) = splice @_, 0, 2 ) {
+      croak "'$reference_name' enum and '$name' enum have different custom attributes, stopped"
+        unless _is_equal $reference_attributes, $attributes;
+      push @values, $class->new( $ordinal++, $name, $attributes )
+    }
     # Build getters for custom attributes
     for my $getter ( keys %$reference_attributes ) {
       no strict 'refs'; ## no critic ( ProhibitNoStrict )
       *{ "$class\::$getter" } = set_subname "$class\::$getter" => sub { my ( $self ) = @_; $self->{ $getter } }
-    }
-    # Build list (@values) of enum object
-    while ( my ( $name, $attributes ) = splice @_, 0, 2 ) {
-      croak "'$reference_name' enum and '$name' enum have different custom attributes, stopped"
-        unless _compare_attributes $reference_attributes, $attributes;
-      push @values, $class->new( $ordinal++, $name, $attributes )
     }
   } else {
     # Build list (@values) of enum object
@@ -55,16 +55,14 @@ sub import {
   }
 }
 
-sub _compare_attributes ( $$ ) {
+# Compare 2 sets of hash keys
+sub _is_equal ( $$ ) {
   my ( $reference_attributes, $attributes ) = @_;
 
-  # Compare 2 sets of names
-  my @reference_attributes = sort keys %$reference_attributes;
-  my @attributes           = sort keys %$attributes;
-
-  return unless @reference_attributes == @attributes;
-  for ( my $i = 0 ; $i < @reference_attributes ; $i++ ) {
-    return if $reference_attributes[ $i ] ne $attributes[ $i ]
+  my @reference_attributes = keys %$reference_attributes;
+  return unless @reference_attributes == keys %$attributes;
+  for ( @reference_attributes ) {
+    return unless exists $attributes->{ $_ }
   }
   1
 }
