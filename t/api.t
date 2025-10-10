@@ -16,7 +16,7 @@ public_ok $class, qw( new name ordinal value_of values names as_string );
 
 dies_ok { $class->new( 0, '' ) } 'The name cannot be empty';
 
-dies_ok { $class->new( 0, 'Locked', [] ) } 'Wrong custom attributes data structure';
+dies_ok { $class->new( 0, 'Locked', [] ) } 'Wrong custom attributes data structure (Raises FATAL warning)';
 
 for ( qw( name ordinal ) ) {
   dies_ok { $class->new( 0, Locked => { $_ => undef } ) } "Overriding $_ attribute is forbidden"

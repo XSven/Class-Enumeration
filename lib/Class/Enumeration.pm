@@ -25,8 +25,8 @@ sub new {
   Carp::croak 'The enum object name cannot be empty, stopped'
     if $name eq '';
   $attributes = {} unless defined $attributes;
-  Carp::croak "The provided enum object custom attributes data structure isn't a HASH reference, stopped"
-    unless ref $attributes eq 'HASH';
+  # Will raise a FATAL warning ("Not a HASH reference at ...") if $attribute is
+  # not a HASH reference
   for ( keys %$attributes ) {
     Carp::croak "Overriding the implicit '$_' enum object attribute is forbidden, stopped"
       if $_ eq 'ordinal' or $_ eq 'name';
