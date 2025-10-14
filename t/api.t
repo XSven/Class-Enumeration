@@ -12,7 +12,7 @@ BEGIN {
   use_ok $class or BAIL_OUT "Cannot load class '$class'!"
 }
 
-public_ok $class, qw( new name ordinal value_of values names as_string );
+public_ok $class, qw( new name ordinal value_of values names to_string );
 
 dies_ok { $class->new( 0, '' ) } 'The name cannot be empty';
 

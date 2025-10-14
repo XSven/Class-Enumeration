@@ -11,8 +11,8 @@ Class::Enumeration::Builder - Builder module for enum classes
 
   package TrafficSignal;
 
-  # Pre-declare the as_string() method to prepare overriding stringification
-  use subs 'as_string';
+  # Pre-declare the to_string() method to prepare overriding stringification
+  use subs 'to_string';
 
   # 'action' is a custom attribute
   use Class::Enumeration::Builder (
@@ -21,7 +21,7 @@ Class::Enumeration::Builder - Builder module for enum classes
     RED    => { action => 'stop' }
   );
 
-  sub as_string {
+  sub to_string {
     my ( $self ) = @_;
 
     $self->action . ' if ' . $self->name
@@ -37,7 +37,7 @@ It creates getters for the custom attributes. It finally prepares the list of
 enum objects.
 
 If you want to override the default stringification you have to pre-declare
-the C<as_string()> before loading the builder.
+the C<to_string()> before loading the builder.
 
 =head1 AUTHOR
 

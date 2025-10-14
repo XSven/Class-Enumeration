@@ -8,7 +8,7 @@ package Class::Enumeration;
 $Class::Enumeration::VERSION = 'v1.0.0';
 
 use overload
-  '""'     => 'as_string',
+  '""'     => 'to_string',
   '=='     => '_is_identical_to',
   '!='     => sub { !&_is_identical_to }, ## no critic ( ProhibitAmpersandSigils )
   fallback => 0;
@@ -67,7 +67,7 @@ sub names {
   map { $_->name } $class->values
 }
 
-sub as_string {
+sub to_string {
   my ( $self ) = @_;
 
   $self->name

@@ -3,7 +3,7 @@ use warnings;
 
 package TrafficSignal;
 
-use subs 'as_string';
+use subs 'to_string';
 
 use Class::Enumeration::Builder (
   GREEN  => { action => 'go' },
@@ -11,7 +11,7 @@ use Class::Enumeration::Builder (
   RED    => { action => 'stop' }
 );
 
-sub as_string {
+sub to_string {
   my ( $self ) = @_;
 
   $self->action . ' if ' . $self->name

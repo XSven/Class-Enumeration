@@ -45,7 +45,7 @@ that returns the enum object with the specified name.
 Each enum class inherits stringification C<'""'> from its C<Class::Enumeration>
 parent class. By default the string representation of an enum object is its
 C<name()>. If you want to override this behaviour, you have to provide an
-C<as_string()> implementation in your enum class.
+C<to_string()> implementation in your enum class.
 
 The parent class C<Class::Enumeration> overloads the operators C<'=='>,
 and C<'!='> too. Magic auto-generation of overload implementations for
