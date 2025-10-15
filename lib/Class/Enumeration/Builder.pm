@@ -37,7 +37,7 @@ sub import {
     while ( my ( $name, $attributes ) = splice @_, 0, 2 ) {
       croak "'$reference_name' enum and '$name' enum have different custom attributes, stopped"
         unless _is_equal $reference_attributes, $attributes;
-      push @values, $class->new( $ordinal++, $name, $attributes )
+      push @values, $class->_new( $ordinal++, $name, $attributes )
     }
     # Build getters for custom attributes
     for my $getter ( keys %$reference_attributes ) {
@@ -46,7 +46,7 @@ sub import {
     }
   } else {
     # Build list (@values) of enum object
-    @values = map { $class->new( $ordinal++, $_ ) } @_
+    @values = map { $class->_new( $ordinal++, $_ ) } @_
   }
 
   {

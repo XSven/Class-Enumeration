@@ -12,14 +12,14 @@ BEGIN {
   require_ok $class or BAIL_OUT "Cannot load class '$class'!"
 }
 
-public_ok $class, qw( new name ordinal value_of values names to_string );
+public_ok $class, qw( name ordinal value_of values names to_string );
 
-dies_ok { $class->new( 0, '' ) } 'The name cannot be empty';
+dies_ok { $class->_new( 0, '' ) } 'The name cannot be empty';
 
-dies_ok { $class->new( 0, 'Locked', [] ) } 'Wrong custom attributes data structure (Raises FATAL warning)';
+dies_ok { $class->_new( 0, 'Locked', [] ) } 'Wrong custom attributes data structure (Raises FATAL warning)';
 
 for ( qw( name ordinal ) ) {
-  dies_ok { $class->new( 0, Locked => { $_ => undef } ) } "Overriding $_ attribute is forbidden"
+  dies_ok { $class->_new( 0, Locked => { $_ => undef } ) } "Overriding $_ attribute is forbidden"
 }
 
-lives_ok { $class->new( 0, BIG => { ounces => 8 } ) } 'Provide valid custom attributes data structure'
+lives_ok { $class->_new( 0, BIG => { ounces => 8 } ) } 'Provide valid custom attributes data structure'

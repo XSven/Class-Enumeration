@@ -19,7 +19,7 @@ use Scalar::Util ();
 # $self == enum object
 # $class == enum class
 
-sub new {
+sub _new {
   my ( $class, $ordinal, $name, $attributes ) = @_;
 
   Carp::croak 'The enum object name cannot be empty, stopped'
