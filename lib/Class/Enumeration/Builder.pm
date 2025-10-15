@@ -16,8 +16,10 @@ use Sub::Util          qw( set_subname );
 sub import {
   shift;
 
+  my $options = ref $_[ 0 ] eq 'HASH' ? shift : {};
+
   # $class == enum class
-  my $class = caller;
+  my $class = exists $options->{ class } ? delete $options->{ class } : caller;
 
   # Now start building the enum class
   {
@@ -53,6 +55,8 @@ sub import {
     # Inject list of enum objects
     @{ "$class\::Values" } = @values
   }
+
+  $class
 }
 
 # Compare 2 sets of hash keys
