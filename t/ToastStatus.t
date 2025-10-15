@@ -4,14 +4,14 @@ use strict;
 use warnings;
 
 use Test::Lib;
-use Test::More import => [ qw( BAIL_OUT cmp_ok is_deeply isa_ok note plan subtest use_ok ) ], tests => 3;
+use Test::More import => [ qw( BAIL_OUT cmp_ok is_deeply isa_ok note plan require_ok subtest ) ], tests => 3;
 use Test::Fatal qw( dies_ok );
 
 my $class;
 
 BEGIN {
   $class = 'ToastStatus';
-  use_ok $class or BAIL_OUT "Cannot load class '$class'!";
+  require_ok $class or BAIL_OUT "Cannot load class '$class'!";
 }
 
 subtest 'Class method invocations' => sub {

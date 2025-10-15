@@ -1,14 +1,14 @@
 use strict;
 use warnings;
 
-use Test::More import => [ qw( BAIL_OUT use_ok ) ], tests => 4;
+use Test::More import => [ qw( BAIL_OUT require_ok ) ], tests => 4;
 use Test::Fatal qw( dies_ok lives_ok );
 
 my $class;
 
 BEGIN {
   $class = 'Class::Enumeration::Builder';
-  use_ok $class or BAIL_OUT "Cannot load class '$class'!"
+  require_ok $class or BAIL_OUT "Cannot load class '$class'!"
 }
 
 dies_ok { $class->import( A => {}, B => { foo => 2 } ) } 'Different number of custom attributes';

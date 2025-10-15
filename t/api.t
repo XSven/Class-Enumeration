@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More import => [ qw( BAIL_OUT use_ok ) ], tests => 7;
+use Test::More import => [ qw( BAIL_OUT require_ok ) ], tests => 7;
 use Test::API import => [ qw( public_ok ) ];
 use Test::Fatal qw( dies_ok lives_ok );
 
@@ -9,7 +9,7 @@ my $class;
 
 BEGIN {
   $class = 'Class::Enumeration';
-  use_ok $class or BAIL_OUT "Cannot load class '$class'!"
+  require_ok $class or BAIL_OUT "Cannot load class '$class'!"
 }
 
 public_ok $class, qw( new name ordinal value_of values names to_string );
