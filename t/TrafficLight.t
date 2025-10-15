@@ -4,7 +4,8 @@ use strict;
 use warnings;
 
 use Test::Lib;
-use Test::More import => [ qw( BAIL_OUT cmp_ok is_deeply isa_ok note plan require_ok subtest ) ], tests => 3;
+use Test::More import => [ qw( BAIL_OUT cmp_ok is_deeply isa_ok note plan require_ok subtest ) ], tests => 4;
+use Test::API import => [ qw( class_api_ok ) ];
 use Test::Fatal qw( dies_ok );
 
 my $class;
@@ -13,6 +14,9 @@ BEGIN {
   $class = 'TrafficLight';
   require_ok $class or BAIL_OUT "Cannot load class '$class'!";
 }
+
+# Class::Enumeration methods + custom methods
+class_api_ok $class, qw( name ordinal value_of values names to_string action );
 
 subtest 'Class method invocations' => sub {
   plan tests => 14;
