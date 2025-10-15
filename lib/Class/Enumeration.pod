@@ -21,6 +21,11 @@ Class::Enumeration - Abstract parent class of enum classes
 
   1
 
+=head1 CAVEAT
+
+This class is abstract and should not be used directly. You should use the
+L<Class::Enumeration::Builder> module instead.
+
 =head1 DESCRIPTION
 
 An enum class is a fixed list of enum objects. Each enum object is immutable
