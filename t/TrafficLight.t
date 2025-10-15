@@ -10,7 +10,7 @@ use Test::Fatal qw( dies_ok );
 my $class;
 
 BEGIN {
-  $class = 'TrafficSignal';
+  $class = 'TrafficLight';
   require_ok $class or BAIL_OUT "Cannot load class '$class'!";
 }
 

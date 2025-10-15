@@ -9,7 +9,7 @@ Class::Enumeration::Builder - Builder module for enum classes
   use strict;
   use warnings;
 
-  package TrafficSignal;
+  package TrafficLight;
 
   # Pre-declare the to_string() method to prepare overriding stringification
   use subs 'to_string';

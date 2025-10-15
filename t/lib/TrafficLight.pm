@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-package TrafficSignal;
+package TrafficLight;
 
 use subs 'to_string';
 
