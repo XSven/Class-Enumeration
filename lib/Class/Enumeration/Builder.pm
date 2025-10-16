@@ -56,8 +56,17 @@ sub import {
       *{ "$class\::$getter" } = set_subname "$class\::$getter" => sub { my ( $self ) = @_; $self->{ $getter } }
     }
   } else {
-    # Build list (@values) of enum object
-    @values = map { $class->_new( $ordinal++, $_ ) } @_
+    # Build list (@values) of enum objects
+    foreach my $name ( @_ ) {
+      # Put each enum object in its own (dedicated) child class of the parent
+      # enum class
+      my $childclass = "$class\::$name";
+      {
+        no strict 'refs'; ## no critic ( ProhibitNoStrict )
+        push @{ "$childclass\::ISA" }, $class
+      }
+      push @values, $childclass->_new( $ordinal++, $name );
+    }
   }
 
   {
