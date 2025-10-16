@@ -16,6 +16,10 @@ use Sub::Util          qw( set_subname );
 sub import {
   shift;
 
+  # TODO: Some options are relevant when import() is called at compile time;
+  # others if import() is called at runtime.
+  # If ( caller( 1 ) )[ 3 ] matches .*::BEGIN import() is called at compile
+  # time.
   my $options = ref $_[ 0 ] eq 'HASH' ? shift : {};
 
   # $class == enum class
