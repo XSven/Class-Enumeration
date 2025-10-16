@@ -37,11 +37,18 @@ sub import {
   # Check if custom attributes were provided
   if ( ref $_[ 1 ] eq 'HASH' ) {
     my ( $reference_name, $reference_attributes ) = @_[ 0 .. 1 ];
-    # Build list (@values) of enum object
+    # Build list (@values) of enum objects
     while ( my ( $name, $attributes ) = splice @_, 0, 2 ) {
       croak "'$reference_name' enum and '$name' enum have different custom attributes, stopped"
         unless _is_equal $reference_attributes, $attributes;
-      push @values, $class->_new( $ordinal++, $name, $attributes )
+      # Put each enum object in its own (dedicated) child class of the parent
+      # enum class
+      my $childclass = "$class\::$name";
+      {
+        no strict 'refs'; ## no critic ( ProhibitNoStrict )
+        push @{ "$childclass\::ISA" }, $class
+      }
+      push @values, $childclass->_new( $ordinal++, $name, $attributes )
     }
     # Build getters for custom attributes
     for my $getter ( keys %$reference_attributes ) {
