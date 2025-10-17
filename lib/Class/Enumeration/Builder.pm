@@ -5,7 +5,7 @@ use warnings;
 
 package Class::Enumeration::Builder;
 
-$Class::Enumeration::Builder::VERSION = 'v1.1.0';
+$Class::Enumeration::Builder::VERSION = 'v1.0.1';
 
 use subs '_is_equal';
 
@@ -43,12 +43,12 @@ sub import {
         unless _is_equal $reference_attributes, $attributes;
       # Put each enum object in its own (dedicated) child class of the parent
       # enum class
-      my $childclass = "$class\::$name";
+      my $child_class = "$class\::$name";
       {
         no strict 'refs'; ## no critic ( ProhibitNoStrict )
-        push @{ "$childclass\::ISA" }, $class
+        push @{ "$child_class\::ISA" }, $class
       }
-      push @values, $childclass->_new( $ordinal++, $name, $attributes )
+      push @values, $child_class->_new( $ordinal++, $name, $attributes )
     }
     # Build getters for custom attributes
     for my $getter ( keys %$reference_attributes ) {
@@ -60,12 +60,12 @@ sub import {
     foreach my $name ( @_ ) {
       # Put each enum object in its own (dedicated) child class of the parent
       # enum class
-      my $childclass = "$class\::$name";
+      my $child_class = "$class\::$name";
       {
         no strict 'refs'; ## no critic ( ProhibitNoStrict )
-        push @{ "$childclass\::ISA" }, $class
+        push @{ "$child_class\::ISA" }, $class
       }
-      push @values, $childclass->_new( $ordinal++, $name );
+      push @values, $child_class->_new( $ordinal++, $name );
     }
   }
 
