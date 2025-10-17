@@ -85,6 +85,9 @@ sub import {
     }
   }
 
+  croak "Unknown options '${ \( join( q/', '/, keys %$options ) ) }' detected, stopped"
+    if %$options;
+
   $class
 }
 

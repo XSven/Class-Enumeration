@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More import => [ qw( BAIL_OUT cmp_ok isa_ok plan require_ok subtest ) ], tests => 5;
+use Test::More import => [ qw( BAIL_OUT cmp_ok isa_ok plan require_ok subtest ) ], tests => 6;
 use Test::Fatal qw( dies_ok lives_ok );
 
 my $class;
@@ -14,6 +14,8 @@ BEGIN {
 dies_ok { $class->import( A => {}, B => { foo => 2 } ) } 'Different number of custom attributes';
 
 dies_ok { $class->import( A => { foo => 1 }, B => { bar => 2 } ) } 'Different names of custom attributes';
+
+dies_ok { $class->import( { class => 'PowerState', foo => 1, bar => 2 }, qw( ON OFF ) ) } 'Unknown options';
 
 lives_ok { $class->import( A => { foo => 1 }, B => { foo => 2 } ) } 'Same names of custom attributes';
 
