@@ -13,7 +13,7 @@ Class::Enumeration - Abstract parent class of enum classes
 
   use parent 'Class::Enumeration';
 
-  # Declaration of enum objects
+  # Define list of enum objects
   our @Values = do {
     my $ordinal = 0;
     map { __PACKAGE__->_new( $ordinal++, $_ ) } qw( Locked Unlocked )
@@ -23,26 +23,27 @@ Class::Enumeration - Abstract parent class of enum classes
 
 =head1 CAVEAT
 
-This class is abstract and should not be used directly. You should use the
+This class is abstract. It defines and partially implements the API
+of enum classes. It should not be used directly. You should use the
 L<Class::Enumeration::Builder> module instead.
 
 =head1 DESCRIPTION
 
-An enum class is a fixed list of enum objects. Each enum object is immutable
-and has a C<name> and an C<ordinal> attribute.
+An enum class is a list of enum objects. Each enum object is immutable and
+has a C<name> and an C<ordinal> attribute.
 
 Each enum class has a C<name()> getter method (an object method), that
-returns the C<name> of the enum object, exactly as declared.
+returns the C<name> of the enum object, exactly as defined.
 
 Each enum class has an C<ordinal()> getter method (an object method), that
-returns the C<ordinal> of the enum object (its position in its declaration,
+returns the C<ordinal> of the enum object (its position in its definition,
 where the initial object is assigned an ordinal of zero).
 
-Each enum class has a C<names()> class method, that returns a list of names
-of the enum objects in the order they are declared.
+Each enum class has a C<names()> class method, that returns the list of
+names of the enum objects in the order they were defined.
 
-Each enum class has a C<values()> class method, that returns the fixed list
-of the enum objects in the order they are declared.
+Each enum class has a C<values()> class method, that returns the list of
+the enum objects in the order they were defined.
 
 Each enum class has a C<value_of( $name )> factory method (a class method),
 that returns the enum object with the specified name.
