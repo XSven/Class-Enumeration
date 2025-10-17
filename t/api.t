@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More import => [ qw( BAIL_OUT require_ok ) ], tests => 7;
+use Test::More import => [ qw( BAIL_OUT require_ok ) ], tests => 8;
 use Test::API import => [ qw( public_ok ) ];
 use Test::Fatal qw( dies_ok lives_ok );
 
@@ -22,4 +22,6 @@ for ( qw( name ordinal ) ) {
   dies_ok { $class->_new( 0, Locked => { $_ => undef } ) } "Overriding $_ attribute is forbidden"
 }
 
-lives_ok { $class->_new( 0, BIG => { ounces => 8 } ) } 'Provide valid custom attributes data structure'
+lives_ok { $class->_new( 0, BIG => { ounces => 8 } ) } 'Provide valid custom attributes data structure';
+
+dies_ok { $class->_values } 'Not implemented'

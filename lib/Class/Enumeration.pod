@@ -14,10 +14,13 @@ Class::Enumeration - Abstract parent class of enum classes
   use parent 'Class::Enumeration';
 
   # Define list of enum objects
-  our @Values = do {
+  my @values;
+  sub _values { ## no critic( ProhibitUnusedPrivateSubroutines )
     my $ordinal = 0;
-    map { __PACKAGE__->_new( $ordinal++, $_ ) } qw( Locked Unlocked )
-  };
+    @values = map { __PACKAGE__->_new( $ordinal++, $_ ) } qw( Locked Unlocked )
+      unless @values;
+    @values
+  }
 
   1
 

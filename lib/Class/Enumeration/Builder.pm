@@ -72,7 +72,7 @@ sub import {
   {
     no strict 'refs'; ## no critic ( ProhibitNoStrict )
     # Inject list of enum objects
-    *{ "$class\::Values" } = \@values;
+    *{ "$class\::_values" } = sub { @values };
     # Optionally build enum constants and set @EXPORT_OK and %EXPORT_TAGS
     if ( delete $options->{ export } ) {
       my @names;

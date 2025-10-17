@@ -17,8 +17,8 @@ use Carp qw( croak );
 sub do_something {
   my ( $self, $input ) = @_;
 
-  return TurnstileStateMachine->value_of( 'Unlocked' ) if $input eq 'coin';
-  return $self                                         if $input eq 'push';
+  return __PACKAGE__->value_of( 'Unlocked' ) if $input eq 'coin';
+  return $self                               if $input eq 'push';
   croak "Wrong input '$input', stooped";
 }
 
@@ -29,8 +29,8 @@ use Carp qw( croak );
 sub do_something {
   my ( $self, $input ) = @_;
 
-  return TurnstileStateMachine->value_of( 'Locked' ) if $input eq 'push';
-  return $self                                       if $input eq 'coin';
+  return __PACKAGE__->value_of( 'Locked' ) if $input eq 'push';
+  return $self                             if $input eq 'coin';
   croak "Wrong input '$input', stooped";
 }
 
