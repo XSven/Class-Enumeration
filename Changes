@@ -3,6 +3,7 @@ Release history for Class-Enumeration
 1.1.0    Fri Oct 17 08:28:32 AM CEST 2025
          - Improve documentation
          - Detect unknown builder options
+         - Add state machine example
 
 1.0.0    Thu Oct 16 12:45:42 PM CEST 2025
          - Initial release

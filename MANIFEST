@@ -15,6 +15,8 @@ t/lib/CoffeeSize.pm
 t/lib/ToastStatus.pm
 t/lib/TrafficLight.pm
 t/lib/TurnstileState.pm
+t/lib/TurnstileStateMachine.pm
 t/ToastStatus.t
 t/TrafficLight.t
 t/TurnstileState.t
+t/TurnstileStateMachine.t
