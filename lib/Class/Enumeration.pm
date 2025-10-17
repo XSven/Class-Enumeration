@@ -5,7 +5,7 @@ use warnings;
 
 package Class::Enumeration;
 
-$Class::Enumeration::VERSION = 'v1.0.2';
+$Class::Enumeration::VERSION = 'v1.0.3';
 
 use overload
   '""'     => 'to_string',

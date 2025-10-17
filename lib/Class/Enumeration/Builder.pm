@@ -5,7 +5,7 @@ use warnings;
 
 package Class::Enumeration::Builder;
 
-$Class::Enumeration::Builder::VERSION = 'v1.0.2';
+$Class::Enumeration::Builder::VERSION = 'v1.0.3';
 
 use subs '_is_equal';
 
