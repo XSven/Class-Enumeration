@@ -1,5 +1,8 @@
 Release history for Class-Enumeration
 
+1.1.0    Sat Oct 18 12:18:19 PM CEST 2025
+         - Introduce new 'counter' builder option
+
 1.0.3    Fri Oct 17 04:33:12 PM CEST 2025
          - Fix MIN_PERL_VERSION format
 

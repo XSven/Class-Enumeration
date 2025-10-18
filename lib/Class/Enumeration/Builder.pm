@@ -2,16 +2,18 @@
 BEGIN { require 5.010_001 }; ## no critic ( RequireUseStrict, RequireUseWarnings )
 use strict;
 use warnings;
+use feature 'state';
 
 package Class::Enumeration::Builder;
 
-$Class::Enumeration::Builder::VERSION = 'v1.0.3';
+$Class::Enumeration::Builder::VERSION = 'v1.1.0';
 
 use subs '_is_equal';
 
-use Carp               qw( croak );
+use Carp      qw( croak );
+use Sub::Util qw( set_subname );
+
 use Class::Enumeration ();
-use Sub::Util          qw( set_subname );
 
 sub import {
   shift;
@@ -32,7 +34,7 @@ sub import {
   }
 
   my @values;
-  my $ordinal = 0;
+  my $counter = exists $options->{ counter } ? delete $options->{ counter } : sub { state $i = 0; $i++ };
   # https://metacpan.org/pod/Class::Enum#Advanced-usage
   # Check if custom attributes were provided
   if ( ref $_[ 1 ] eq 'HASH' ) {
@@ -48,7 +50,7 @@ sub import {
         no strict 'refs'; ## no critic ( ProhibitNoStrict )
         push @{ "$child_class\::ISA" }, $class
       }
-      push @values, $child_class->_new( $ordinal++, $name, $attributes )
+      push @values, $child_class->_new( $counter->(), $name, $attributes )
     }
     # Build getters for custom attributes
     for my $getter ( keys %$reference_attributes ) {
@@ -65,7 +67,7 @@ sub import {
         no strict 'refs'; ## no critic ( ProhibitNoStrict )
         push @{ "$child_class\::ISA" }, $class
       }
-      push @values, $child_class->_new( $ordinal++, $name );
+      push @values, $child_class->_new( $counter->(), $name );
     }
   }
 
