@@ -35,6 +35,7 @@ sub import {
 
   my @values;
   my $counter = exists $options->{ counter } ? delete $options->{ counter } : sub { state $i = 0; $i++ };
+  my $prefix  = exists $options->{ prefix }  ? delete $options->{ prefix }  : '';
   # Check if custom attributes were provided
   if ( ref $_[ 1 ] eq 'HASH' ) {
     my ( $reference_name, $reference_attributes ) = @_[ 0 .. 1 ];
@@ -42,7 +43,7 @@ sub import {
     while ( my ( $name, $attributes ) = splice @_, 0, 2 ) {
       croak "'$reference_name' enum and '$name' enum have different custom attributes, stopped"
         unless _is_equal $reference_attributes, $attributes;
-      push @values, _create_enum_object $class, $counter, $name, $attributes
+      push @values, _create_enum_object $class, $counter, $prefix, $name, $attributes
     }
     # Build getters for custom attributes
     for my $getter ( keys %$reference_attributes ) {
@@ -52,7 +53,7 @@ sub import {
   } else {
     # Build list (@values) of enum objects
     foreach my $name ( @_ ) {
-      push @values, _create_enum_object $class, $counter, $name;
+      push @values, _create_enum_object $class, $counter, $prefix, $name;
     }
   }
 
@@ -80,8 +81,8 @@ sub import {
   $class
 }
 
-sub _create_enum_object ( $$$;$ ) {
-  my ( $class, $counter, $name, $attributes ) = @_;
+sub _create_enum_object ( $$$$;$ ) {
+  my ( $class, $counter, $prefix, $name, $attributes ) = @_;
 
   # Put each enum object in its own (dedicated) child class of the parent
   # enum class
@@ -91,7 +92,7 @@ sub _create_enum_object ( $$$;$ ) {
     push @{ "$child_class\::ISA" }, $class
   }
 
-  $child_class->_new( $counter->(), $name, $attributes )
+  $child_class->_new( $counter->(), $prefix . $name, $attributes )
 }
 
 # Compare 2 sets of hash keys

@@ -41,7 +41,9 @@ Class::Enumeration::Builder - Builder module for enum classes
 
   # Choose an exporter module and set the 'export' option to true
   use Exporter qw( import );
-  use Class::Enumeration::Builder { export => 1 }, qw( bread toasting toast burnt );
+  use Class::Enumeration::Builder
+    { export => 1 },
+    qw( bread toasting toast burnt );
 
   1
 
@@ -71,6 +73,13 @@ optional options HASH reference. The allowed options are:
 An enum class can be build at runtime.  In this case The C<class> option
 should be used to set the enum class name.
 
+=item * C<counter> (a CODE reference)
+
+The C<counter> option can be used to overwrite the default ordinal number
+generator. It should return a unique value for each enum object in the list.
+The values should be numeric and comparable in pairs using the C<E<lt>=E<gt>>
+operator.
+
 =item * C<export> (a boolean value)
 
 If the C<export> option is set to true, the builder prepares enum constants
@@ -79,12 +88,10 @@ tag that is part of the variable C<%EXPORT_TAGS>. Any separately loaded
 exporter module like for example L<Exporter> enables the feature to export
 enum constants.
 
-=item * C<counter> (a CODE reference)
+=item * C<prefix> (a non-empty string)
 
-The C<counter> option can be used to overwrite the default ordinal number
-generator. It should return a unique value for each enum object in the list.
-The values should be numeric and comparable in pairs using the C<E<lt>=E<gt>>
-operator.
+The C<prefix> option can be used to specify a common prefix for the names of
+the enum objects in the list.
 
 =back
 
