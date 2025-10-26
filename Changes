@@ -1,5 +1,8 @@
 Release history for Class-Enumeration
 
+1.2.0    Sun Oct 26 09:58:00 AM CET 2025
+         - Improve documentation
+
 1.1.0    Tue Oct 21 07:19:58 AM CEST 2025
          - Improve documentation
          - Reduce redundant source code
