@@ -88,6 +88,11 @@ tag that is part of the variable C<%EXPORT_TAGS>. Any separately loaded
 exporter module like for example L<Exporter> enables the feature to export
 enum constants.
 
+=item * C<predicate> (a boolean value)
+
+If the C<predicate> option is set to true, the builder creates C<is_*()>
+predicate methods (object methods) for each enum object in the list.
+
 =item * C<prefix> (a non-empty string)
 
 The C<prefix> option can be used to specify a common prefix for the names of
