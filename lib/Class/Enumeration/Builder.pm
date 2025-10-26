@@ -73,6 +73,13 @@ sub import {
       *{ "$class\::EXPORT_OK" }   = \@names;
       *{ "$class\::EXPORT_TAGS" } = { all => \@names };
     }
+    # Optionally build enum object predicate methods
+    if ( delete $options->{ predicate } ) {
+      for my $self ( @values ) {
+        my $name = $self->name;
+        *{ "$class\::is_$name" } = sub { $_[ 0 ] == $self }
+      }
+    }
   }
 
   croak "Unknown options '${ \( join( q/', '/, keys %$options ) ) }' detected, stopped"
