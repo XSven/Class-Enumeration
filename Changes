@@ -1,5 +1,8 @@
 Release history for Class-Enumeration
 
+1.2.1    Wed Oct 29 07:26:28 AM CET 2025
+         - Add version information to options in documentation
+
 1.2.0    Mon Oct 27 07:27:26 AM CET 2025
          - Improve documentation
          - Introduce new 'prefix' builder option

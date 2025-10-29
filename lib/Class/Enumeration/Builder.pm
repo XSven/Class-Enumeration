@@ -6,7 +6,7 @@ use feature 'state';
 
 package Class::Enumeration::Builder;
 
-$Class::Enumeration::Builder::VERSION = 'v1.2.0';
+$Class::Enumeration::Builder::VERSION = 'v1.2.1';
 
 use subs qw( _create_enum_object _is_equal );
 
