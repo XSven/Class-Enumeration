@@ -10,7 +10,7 @@ $Class::Enumeration::Builder::VERSION = 'v1.2.1';
 
 use subs qw( _create_enum_object _is_equal );
 
-use Carp      qw( croak );
+use Carp      qw( carp croak );
 use Sub::Util qw( set_subname );
 
 use Class::Enumeration ();
@@ -26,6 +26,8 @@ sub import {
 
   # $class == enum class
   my $class = exists $options->{ class } ? delete $options->{ class } : caller;
+  carp( "Enum class '$class' already built, warned" ), return $class ## no critic ( ProhibitCommaSeparatedStatements )
+    if do { no strict 'refs'; defined &{ "$class\::values" } }; ## no critic ( ProhibitNoStrict )
 
   # Now start building the enum class
   {
