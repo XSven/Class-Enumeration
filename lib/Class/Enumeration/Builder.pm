@@ -6,7 +6,7 @@ use feature 'state';
 
 package Class::Enumeration::Builder;
 
-$Class::Enumeration::Builder::VERSION = 'v1.2.1';
+$Class::Enumeration::Builder::VERSION = 'v1.3.0';
 
 use subs qw( _create_enum_object _is_equal );
 
@@ -60,14 +60,17 @@ sub import {
   }
 
   {
-    no strict 'refs'; ## no critic ( ProhibitNoStrict )
-    # Inject list of enum objects
-    *{ "$class\::values" } = sub {
-      sort { $a->ordinal <=> $b->ordinal } @values
-    };
+    {
+      no strict 'refs'; ## no critic ( ProhibitNoStrict )
+      # Inject list of enum objects
+      *{ "$class\::values" } = sub {
+        sort { $a->ordinal <=> $b->ordinal } @values
+      }
+    }
     # Optionally build enum constants and set @EXPORT_OK and %EXPORT_TAGS
     if ( delete $options->{ export } ) {
       my @names;
+      no strict 'refs'; ## no critic ( ProhibitNoStrict )
       for my $self ( @values ) {
         push @names, my $name = $self->name;
         *{ "$class\::$name" } = sub () { $self }
@@ -77,10 +80,15 @@ sub import {
     }
     # Optionally build enum object predicate methods
     if ( delete $options->{ predicate } ) {
+      no strict 'refs'; ## no critic ( ProhibitNoStrict )
       for my $self ( @values ) {
         my $name = $self->name;
         *{ "$class\::is_$name" } = sub { $_[ 0 ] == $self }
       }
+    }
+    if ( delete $options->{ to_json } ) {
+      no strict 'refs'; ## no critic ( ProhibitNoStrict )
+      *{ "$class\::TO_JSON" } = sub { $_[ 0 ]->name }
     }
   }
 

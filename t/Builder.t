@@ -16,7 +16,7 @@ dies_ok { $class->import( A => {}, B => { foo => 2 } ) } 'Different number of cu
 
 dies_ok { $class->import( A => { foo => 1 }, B => { bar => 2 } ) } 'Different names of custom attributes';
 
-dies_ok { $class->import( { class => 'PowerState', foo => 1, bar => 2 }, qw( ON OFF ) ) } 'Unknown options';
+dies_ok { $class->import( { class => 'PowerState', foo => 1, bar => 2 }, qw( OFF ON ) ) } 'Unknown options';
 
 lives_ok { $class->import( A => { foo => 1 }, B => { foo => 2 } ) } 'Same names of custom attributes';
 
